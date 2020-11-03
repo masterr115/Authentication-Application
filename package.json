@@ -1,0 +1,50 @@
+{
+    "name": "trial-senior",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/server.js",
+    "dependencies": {
+        "@handlebars/allow-prototype-access": "^1.0.3",
+        "axios": "^0.21.0",
+        "body-parser": "^1.19.0",
+        "colors": "^1.4.0",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "csurf": "^1.11.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-group-router": "^2.1.0",
+        "express-handlebars": "^5.2.0",
+        "express-session": "^1.17.1",
+        "fs": "^0.0.1-security",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-javascript-obfuscator": "^1.1.6",
+        "gulp-sequence": "^1.0.0",
+        "gulp-uglify-es": "^2.0.0",
+        "handlebars": "^4.7.6",
+        "helmet": "^4.2.0",
+        "knex": "^0.21.12",
+        "mysql": "^2.18.1",
+        "nodemailer": "^6.4.14",
+        "nodemon": "^2.0.6",
+        "path": "^0.12.7",
+        "sqlite-async": "^1.1.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon src/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Masterr115/Trial-Senior.git"
+    },
+    "author": "Andre Contiero",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Masterr115/Trial-Senior/issues"
+    },
+    "homepage": "https://github.com/Masterr115/Trial-Senior#readme"
+}
