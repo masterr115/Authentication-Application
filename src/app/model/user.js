@@ -1,4 +1,4 @@
-const db = require('../model/user')
+const db = require('../../services/database/users')
 
 async function findUser(email) {
     const database = await db

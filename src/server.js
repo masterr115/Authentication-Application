@@ -26,7 +26,8 @@ const csrf = require('csurf')
 
 require('dotenv').config()
 require('./services/colors')
-require('./services/database')
+require('./services/database/tokens')
+require('./services/database/users')
 const helpers = require('./services/helpers')
 
 
@@ -82,9 +83,9 @@ console.log = function(msg, ...options) {
 
 }
 
-// const { deleteAllTokens } = require('./app/model/database/tokenController')
+const { deleteAllTokens } = require('./app/model/tokens')
 
-// deleteAllTokens()
+deleteAllTokens()
 
 /*
 ##### Import Routes's (Essencial for Router's funcional Front-End)

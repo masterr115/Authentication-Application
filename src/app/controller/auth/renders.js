@@ -12,4 +12,8 @@ module.exports = {
 
     },
 
+    async RenderLogout(req, res) {
+        res.redirect('/')
+    }
+
 }

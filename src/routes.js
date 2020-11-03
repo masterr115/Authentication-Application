@@ -7,25 +7,27 @@ const router = new Router();
 ##### Import Controller's (Utilized for API's asyncronous)
 */
 
-const { isLoggedIn } = require('./middlewares/auth')
+const { isLoggedIn, notLoggedIn } = require('./middlewares/auth')
 
-const { RenderLogin, RenderRegister } = require('./controller/auth/renders');
-const { RenderDashboard } = require('./controller/main/renders');
+const { RenderLogin, RenderRegister, RenderLogout } = require('./app/controller/auth/renders');
+const { LoginController, RegisterController } = require('./app/controller/auth/controllers')
+const { RenderDashboard } = require('./app/controller/main/renders');
+
 
 /*
 ##### Router (Main Pages and Controller API)
 */
 
 router.group(router => {
-    router.get('/', RenderLogin)
-    router.get('/register', RenderRegister)
+    router.get('/', notLoggedIn, RenderLogin)
+    router.get('/register', notLoggedIn, RenderRegister)
     router.get('/dashboard', isLoggedIn, RenderDashboard)
 })
 
 router.group('/account', router => {
-    router.post('/login')
-    router.post('/create')
-    router.post('/logout')
+    router.post('/login', LoginController)
+    router.post('/create', RegisterController)
+    router.get('/logout', isLoggedIn, RenderLogout)
 })
 
 module.exports = router

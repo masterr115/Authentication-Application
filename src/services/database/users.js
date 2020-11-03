@@ -14,4 +14,4 @@ function createTable(db) {
     `)
 }
 
-module.exports = database.open(path.join(__dirname, '../../database.sqlite')).then(createTable)
+module.exports = database.open(path.join(__dirname, '../../../database.sqlite')).then(createTable)
