@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Simple App Logo" title="Simple App Logo" src=".github/logo.png" />
+    <img alt="Simple App Logo" title="Simple App Logo" src=".github/logo1.png" />
 </h1>
 
 <p align="center">
