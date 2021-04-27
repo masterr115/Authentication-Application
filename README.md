@@ -1,33 +1,52 @@
-# Trial Senior Web Developer
+<h1 align="center">
+    <img alt="Simple App Logo" title="Simple App Logo" src=".github/logo.png" />
+</h1>
 
-This project is free and open source for Senior Web Developer Test.
+<p align="center">
+  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-get-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-routes">Routes</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
+</p>
 
-It consists of an basic authentication application, with secure register and login, with integration with Discord.
+<br>
 
-# Tecnologies used
+---
 
-- Node.JS
-- SQL
-- Express
-- Handlebars
-- Crypto
-- Axios
+## 🧪 Technologies
 
-# Security
+This project was developed using the following technologies:
 
-- Helmet
-- Csurf
-- Body Parser
-- Crypted Session
+- [Node.JS](https://nodejs.org/)
+- [SQLITE](https://www.sqlite.org/index.html)
+- [Handlebars](https://handlebarsjs.com/)
+- [Axios](https://axios-http.com/)
+- [Express](https://expressjs.com/)
 
-# Instructions to use
+## 🚀 Getting started
 
-- 1) Download this repository
-- 2) Install dependencies with `npm install`
-- 3) Run this with `npm start`
-- 4) Open your navigator and go to `http://localhost:5000`
+Clone the project and access the folder
 
-# Routes
+```bash
+$ git clone https://github.com/Masterr115/Basic-Authentication-Application.git && cd Basic-Authentication-Application
+```
+
+Follow the steps below
+```bash
+# Install the dependencies
+$ npm install
+
+# Start the project
+$ npm start
+```
+
+The application will start on port 5000
+
+- To register: Go to `/register` route and fill all values, after that, confirm your email.
+- To login: Go to `/login` route and fill all the values.
+
+## 🔎 Routes
 
 - `/` : Index, login page (Get)
 - `/register` : Register Page (Get)
@@ -37,7 +56,18 @@ It consists of an basic authentication application, with secure register and log
 - `/account/login` : Route to login (Post)
 - `/account/create` : Route to create Account (Post)
 
-# How to register or login
 
-- To register: Go to `/register` route and fill all values, after that, confirm your email.
-- To login: Go to `/login` route and fill all the values.
+## 💻 Project
+
+This project is free and open source and it consists of an basic authentication application, with secure register and login, with integration with Discord.
+
+
+
+## 📝 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
+
+
+---
+
+Made with 💜 by [André Contiero](https://github.com/Masterr115) 👋

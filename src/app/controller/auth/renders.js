@@ -2,18 +2,23 @@ module.exports = {
 
     async RenderLogin(req, res) {
 
-        res.render('pages/auth/login')
+        // Render the login page
+        return res.render('pages/auth/login')
 
     },
 
     async RenderRegister(req, res) {
 
-        res.render('pages/auth/register')
+        // Render the register page
+        return res.render('pages/auth/register')
 
     },
 
     async RenderLogout(req, res) {
-        res.redirect('/')
+
+        // Render the logout page
+        return res.redirect('/')
+
     }
 
 }

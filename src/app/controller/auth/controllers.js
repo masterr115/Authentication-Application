@@ -1,77 +1,89 @@
+require('dotenv').config()
 const { isEmpty } = require('../../../services/isEmpty')
 const { encrypt, decrypt } = require('../../../services/CryptDecrypt')
 const { findUser, createUser } = require('../../model/user')
+const axios = require('axios')
 
-// const { findToken, createToken } = require('../../model/tokens')
+const BASEAPI = "https://discord.com/api/v7"
 
 module.exports = {
 
     async LoginController(req, res) {
 
+        // Get the body of POST request
         const { email, password } = req.body
 
+        // Pre-Verify if values is undefined or null
         if (email == undefined || password == undefined) {
 
-            res.send({ status: 502, error: true, errormessage: "Fill all the values!" })
+            // Return BadRequest status
+            res.status(400).send({ status: 400, error: true, errormessage: "Fill all the values!" })
 
         } else {
 
-            const find = await findUser(email)
+            // Search the Member in database
+            const findMember = await findUser(email)
 
-            if (!isEmpty(find)) {
+            // Check if user exists
+            if (!isEmpty(findMember)) {
 
-                if (findUser.verifyEmail == '1') {
+                // Search if user is LoggedIn
+                const findLogged = await findLogged(encrypt(email))
 
-                    const findLogged = await findLogged(encrypt(email))
+                // Check if user is LoggedIn
+                if (isEmpty(findLogged)) {
 
-                    if (isEmpty(findLogged)) {
+                    // Check passwords
+                    if (password == decrypt(find.password)) {
 
-                        if (password == decrypt(find.password)) {
+                        // Set the session for the member
+                        req.session.user = encrypt(email)
 
-                            req.session.user = encrypt(email)
-
-                            await axios.post(`https://discordapp.com/api/channels/${process.env.CHANNEL_DISCORD_ID}/messages`, {
-
-                                headers: {
-
-                                    Authorization: `Bot ${process.env.BOT_TOKEN}`
-
-                                },
-
-                                embed: {
-
-                                    title: "New login",
-                                    description: `The user ${email} logged in!`,
-                                    color: 1360864
-
-                                }
-
-                            })
-
-                            res.send({ status: 200, error: false, message: "Logged in successfully!" })
-
-                        } else {
-
-                            res.send({ status: 403, error: true, errormessage: "Password not match!" })
-
+                        // Send a message to Discord using the AXIOS with POST.
+                        let headers = {
+                            headers: {
+                                Authorization: `Bot ${process.env.BOT_TOKEN}`
+                            }
                         }
+
+                        let body = {
+
+                            embed: {
+                                title: "New login",
+                                description: 'The user `' + email + '` logged in!',
+                                color: 65280,
+                                timestamp: new Date().toISOString(),
+                                footer: {
+                                    text: process.env.BOT_TOKEN,
+                                }
+                            }
+                        }
+
+                        await axios.post(`https://discordapp.com/api/channels/${process.env.CHANNEL_DISCORD_ID}/messages`, body, headers)
+
+                        // Return OK status
+                        res.status(200).send({ status: 200, error: false, message: "Logged in successfully!" })
 
                     } else {
 
-                        res.send({ status: 502, error: true, errormessage: "You're already logged in!" })
+                        // Return Forbbiden status
+                        res.status(403).send({ status: 403, error: true, errormessage: "Password not match!" })
 
                     }
 
                 } else {
 
-                    res.send({ status: 403, error: true, errormessage: "You need to verify your email before logging!" })
+                    // Return Forbbiden status
+                    res.status(401).send({ status: 401, error: true, errormessage: "You're already logged in!" })
 
                 }
 
 
+
             } else {
 
-                res.send({ status: 502, error: true, errormessage: "This email not exists!" })
+                // Return NotFound status
+                res.status(404).send({ status: 404, error: true, errormessage: "This email not exists!" })
 
             }
 
@@ -81,27 +93,57 @@ module.exports = {
 
     async RegisterController(req, res) {
 
+        // Get the body of POST request 
         const { name, email, password } = req.body
 
-        if (password.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/)) {
+        // Check if the password being at least 8 characters long, having a capital letter and a symbol.
+        if (password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/)) {
 
-            const find = await findUser(email)
+            // Seach for existing user
+            const findMember = await findUser(email)
 
-            if (isEmpty(find)) {
+            // Check if not exists the user mentioned
+            if (isEmpty(findMember)) {
 
-                await createUser({ name, email, password, verifyEmail: '0' })
+                // Send a message to Discord using the AXIOS with POST.
+                let headers = {
+                    headers: {
+                        "Authorization": `Bot ` + process.env.BOT_TOKEN,
+                        "Content-Type": "application/json"
+                    }
+                }
 
-                res.send({ status: 200, error: false, message: "Account created successfully!" })
+                let body = {
+                    embed: {
+                        title: 'New register',
+                        description: 'The user `' + email + '` has been registered!',
+                        color: 16733952,
+                        timestamp: new Date().toISOString(),
+                        footer: {
+                            text: process.env.APP_NAME,
+                        }
+                    }
+                }
+
+                await axios.post(`${BASEAPI}/channels/${process.env.CHANNEL_DISCORD_ID}/messages`, body, headers)
+
+                // Create user in database
+                await createUser({ name, email, password })
+
+                // Return created status
+                res.status(201).send({ status: 201, error: false, message: "Account created successfully! Check your email for more instructions." })
 
             } else {
 
-                res.send({ status: 502, error: true, errormessage: "This email is already registered!" })
+                // Return forbbiden status
+                res.status(403).send({ status: 403, error: true, errormessage: "This email is already registered!" })
 
             }
 
         } else {
 
-            res.send({ status: 502, error: true, errormessage: "Password being at least 8 characters long, having a capital letter and a symbol." })
+            // Return Not-Acceptable status
+            res.status(406).send({ status: 406, error: true, errormessage: "Password being at least 8 characters long, having a capital letter and a symbol." })
 
         }
 

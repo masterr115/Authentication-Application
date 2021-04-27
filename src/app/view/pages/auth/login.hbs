@@ -1,0 +1,40 @@
+<div class="wrapper">
+
+  <div class="container">
+    <div class="justify-content-center-between">
+
+      <div id="item">
+        <img src="/img/login.svg" width="500">
+      </div>
+
+      <div class="card" id="item">
+        <div class="justify-content-center-between">
+
+          <div>
+              <h1>Login</h1>
+              <hr>
+          </div>
+
+          <a class="btn-account" href="/register">Sign Up</a>
+            
+        </div>
+
+        <div class="form-login">
+
+          <label for="email"><i class="fas fa-envelope"></i> &nbsp;E-mail</label>
+          <input type="email" id="email" name="email" maxlength="70">
+
+          <span>
+            <label for="password"><i class="fas fa-unlock-alt"></i> &nbsp;Password</label>
+            <input type="password" id="password" name="password" maxlength="32">
+            <!-- <a class="btn-changepass" href="/changepass">{{lang.btns.changepass}}</a> -->
+          </span>
+
+        </div>
+        <button class="btn-login" onclick="apiLogin()">Login</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

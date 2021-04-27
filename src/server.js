@@ -101,4 +101,4 @@ app.use(routes)
 ##### Listen Application (Start APP, and use Base Port to Front-End)
 */
 
-app.listen(process.env.APP_PORT, () => { console.log(`\n[${process.env.APP_NAME}] ≈ Serviço Web iniciado com sucesso.\nRodando em: http://localhost:${process.env.APP_PORT}\n`.success) })
+app.listen(process.env.APP_PORT, () => { console.log(`\n[${process.env.APP_NAME}] ≈ Serviço Web iniciado com sucesso.\nRodando em: http://localhost:${process.env.APP_PORT}\n`) })
